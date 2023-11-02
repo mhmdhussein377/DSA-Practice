@@ -52,3 +52,26 @@ BinarySearchTree.prototype.DFSInOrder = function () {
 }
 
 // First we create a new array to store the nodes, then we create a function to implement the in order dfs on every node so it has to work recursively (if there is no node we do nothing, otherwise we execute the in order function on the left node and then we push the value of the node we are on and finally we execute the in order function on the right node of the node we are on)
+
+
+// #######################
+
+// DFSPostOrder
+// This function should search through each node in the binary search tree using post-order depth first search and return an array containing each node's value.
+
+BinarySearchTree.prototype.DFSPostOrder = function () {
+    const array = []
+
+    function PostOrderDFS(node) {
+        if(node === null) return
+
+        PostOrderDFS(node.left)
+        PostOrderDFS(node.right)
+        array.push(node)
+    }
+
+    PostOrderDFS(this.root)
+    return array
+}
+
+// First we create a new array to store the nodes, then we create a function to implement the post order dfs on every node so it has to work recursively (if there is no node we do nothing, otherwise we execute the post order function on the left node and then on the right node of the node we are on and finally we push the value of the node we are on )
