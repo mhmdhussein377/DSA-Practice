@@ -75,3 +75,5 @@ BinarySearchTree.prototype.DFSPostOrder = function () {
 }
 
 // First we create a new array to store the nodes, then we create a function to implement the post order dfs on every node so it has to work recursively (if there is no node we do nothing, otherwise we execute the post order function on the left node and then on the right node of the node we are on and finally we push the value of the node we are on )
+
+
