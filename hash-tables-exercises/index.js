@@ -38,3 +38,11 @@ HashTable.prototype._hash = function (key) {
         return hashFunction(numKey, this.RANDOM_VAL, this.keyMap.length)
     }
 }
+
+// set
+// This function should set a value in the hashTable based on a specified key.
+
+HashTable.prototype.set = function (key, value) {
+    this[key] = value
+    return this
+}
