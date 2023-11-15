@@ -225,3 +225,70 @@ var twoSum = function(nums, target) {
 
     return null
 };
+
+
+
+// Group Anagrams
+// Medium
+
+
+// Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+
+// An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+
+// Example 1:
+
+// Input: strs = ["eat","tea","tan","ate","nat","bat"]
+// Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+// Example 2:
+
+// Input: strs = [""]
+// Output: [[""]]
+// Example 3:
+
+// Input: strs = ["a"]
+// Output: [["a"]]
+
+// Constraints:
+
+// 1 <= strs.length <= 104
+// 0 <= strs[i].length <= 100
+// strs[i] consists of lowercase English letters.
+
+
+// SOLUTION
+
+
+// * Approach:
+//  * - Use a frequency map (freq) to group anagrams based on their sorted representations.
+//  * - Iterate through each string in the input array:
+//  *   - Sort the characters of the string to create a canonical form.
+//  *   - Use the sorted string as a key in the frequency map.
+//  *   - Group original strings with the same sorted form in the map.
+//  * - Return an array containing the grouped anagrams.
+//  *
+//  * Time Complexity: O(n * m * log(m))
+//  * - n is the number of strings in the input array.
+//  * - m is the maximum length of any string.
+//  * - Sorting each string contributes to the time complexity.
+//  * 
+//  * 
+
+/**
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+var groupAnagrams = function(strs) {
+    const map = {}
+    for(let i = 0; i < strs.length; i++) {
+        const sortedStr = strs[i].split("").sort().join("")
+        if(!map.hasOwnProperty(sortedStr)) {
+            map[sortedStr] = []
+        }
+
+        map[sortedStr].push(strs[i])
+    }
+
+    return Object.values(map)
+};
