@@ -227,6 +227,8 @@ var twoSum = function(nums, target) {
 };
 
 
+// ############
+// ############
 
 // Group Anagrams
 // Medium
@@ -291,4 +293,115 @@ var groupAnagrams = function(strs) {
     }
 
     return Object.values(map)
+};
+
+
+
+// ###########
+// ###########
+
+// Medium
+// Top K Frequent Elements
+
+// Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+
+
+
+// Example 1:
+
+// Input: nums = [1,1,1,2,2,3], k = 2
+// Output: [1,2]
+// Example 2:
+
+// Input: nums = [1], k = 1
+// Output: [1]
+
+
+// Constraints:
+
+// 1 <= nums.length <= 105
+// -104 <= nums[i] <= 104
+// k is in the range [1, the number of unique elements in the array].
+// It is guaranteed that the answer is unique.
+
+
+
+// FIRST SOLUTION
+
+// The initial solution uses a frequency counting approach where we iterate through
+// the 'nums' array and maintain a frequency map ('freq') for each unique element.
+// After counting frequencies, we extract the values, sort them in descending order,
+// and select the top k frequent elements. Finally, we iterate through the original
+// frequency map and collect the keys corresponding to the most frequent values.
+
+// Time Complexity: O(n log n) for sorting, where n is the length of 'nums'.
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var topKFrequent = function(nums, k) {
+    const freq = {}
+    for(let i = 0; i < nums.length; i++) {
+        if(!freq[nums[i]]) {
+            freq[nums[i]] = 1
+        } else {
+            freq[nums[i]]++
+        }
+    }
+
+    const mostFrequent = Object.values(freq).sort((a, b) => b - a).slice(0,k)
+
+    return Object.entries(freq).reduce((acc, [key, value]) => {
+        if(mostFrequent.includes(value)) {
+            acc.push(key)
+        }
+        return acc
+    }, [])
+};
+
+
+// SECOND SOLUTION
+
+// The optimized solution still uses a frequency counting approach, but instead of
+// sorting the entire frequency array, we iteratively find the k most frequent elements
+// by maintaining a 'mostFrequent' array. We achieve this by repeatedly finding and
+// removing the maximum frequency value from the frequency values array. This avoids
+// the need for sorting the entire array and results in better time complexity.
+//
+// Time Complexity: O(k * n), where k is the number of most frequent elements and n is
+// the number of unique elements in 'nums'.
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var topKFrequent = function(nums, k) {
+    const freq = {}
+    for(let i = 0; i < nums.length; i++) {
+        if(!freq[nums[i]]) {
+            freq[nums[i]] = 1
+        } else {
+            freq[nums[i]]++
+        }
+    }
+
+    const mostFrequent = []
+    const values = Object.values(freq)
+    for(let i = 0; i < k; i++) {
+        const max = Math.max(...values)
+        mostFrequent.push(max)
+
+        const maxIndex = values.indexOf(max)
+        values.splice(maxIndex, 1)
+    }
+
+    return Object.entries(freq).reduce((acc, [key, value]) => {
+        if(mostFrequent.includes(value)) {
+            acc.push(key)
+        }
+        return acc
+    }, [])
 };
