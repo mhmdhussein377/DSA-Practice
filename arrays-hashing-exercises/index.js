@@ -405,3 +405,78 @@ var topKFrequent = function(nums, k) {
         return acc
     }, [])
 };
+
+
+
+// ###########
+// ###########
+
+// Medium
+// Longest Consecutive Sequence
+
+
+// Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
+
+// You must write an algorithm that runs in O(n) time.
+
+ 
+
+// Example 1:
+
+// Input: nums = [100,4,200,1,3,2]
+// Output: 4
+// Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
+// Example 2:
+
+// Input: nums = [0,3,7,2,5,8,4,6,0,1]
+// Output: 9
+ 
+
+// Constraints:
+
+// 0 <= nums.length <= 105
+// -109 <= nums[i] <= 109
+
+
+
+// SOLUTION
+
+// longestConsecutive function finds the length of the longest consecutive subsequence
+// in the given array 'nums'. It uses a Set ('numSet') to efficiently perform lookups.
+// For each unique number in 'nums', it checks if the number - 1 exists in 'numSet', 
+// which indicates the start of a potential consecutive subsequence. If found, it skips 
+// further processing to optimize the algorithm. Otherwise, it iterates through the 
+// consecutive numbers from the current one, counting the length of the subsequence.
+// The function returns the maximum length found among all subsequences.
+//
+// Time Complexity: O(n), where n is the length of the input array 'nums'. The function
+// iterates through each unique number once and performs constant time operations.
+
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var longestConsecutive = function(nums) {
+
+    const numSet = new Set(nums)
+
+    let maxScore = 0
+
+    for(const num of [...numSet]) {
+        // for optimization
+        if(numSet.has(num - 1)) continue
+
+        let score = 1;
+        let currentNum = num
+
+        while(numSet.has(currentNum + 1)) {
+            currentNum++
+            score++
+        }
+
+        maxScore = Math.max(maxScore, score)
+    }
+
+    return maxScore
+};
