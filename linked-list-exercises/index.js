@@ -71,5 +71,80 @@ var mergeTwoLists = function(list1, list2) {
     currentNode.next = list1 || list2
 
     return result.next
-    
 };
+
+
+
+
+// #############
+// #############
+
+// Remove Linked List Elements
+
+
+// Given the head of a linked list and an integer val, remove all the nodes of the linked list that has Node.val == val, and return the new head.
+
+// Example 1:
+
+// Input: head = [1,2,6,3,4,5,6], val = 6
+// Output: [1,2,3,4,5]
+// Example 2:
+
+// Input: head = [], val = 1
+// Output: []
+// Example 3:
+
+// Input: head = [7,7,7,7], val = 7
+// Output: []
+
+
+// Constraints:
+
+// The number of nodes in the list is in the range [0, 104].
+// 1 <= Node.val <= 50
+// 0 <= val <= 50
+
+
+
+// SOLUTION
+
+
+/**
+ * Removes all nodes with the specified value from a singly-linked list.
+ * The function iterates through the list, skipping nodes with the target value,
+ * and connects the remaining nodes to create an updated linked list.
+ * 
+ * Time Complexity: O(n), where n is the number of elements in the linked list.
+ * The function traverses the entire list once.
+ */
+
+
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} val
+ * @return {ListNode}
+ */
+var removeElements = function(head, val) {
+    let current = newList =  new ListNode()
+    current.next = head
+
+    while(current.next) {
+        if(current.next.val === val) {
+            current.next = current.next.next
+        }else {
+            current = current.next
+        }
+    }
+
+    return newList.next
+};
+
+
