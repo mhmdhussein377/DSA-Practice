@@ -280,3 +280,58 @@ var reverseList = function(head) {
 
     return prev
 };
+
+
+
+// *************
+// *************
+
+// Remove Duplicates from Sorted List
+
+// Given the head of a sorted linked list, delete all duplicates such that each element appears only once. Return the linked list sorted as well.
+
+// Example 1:
+
+// Input: head = [1,1,2]
+// Output: [1,2]
+
+
+// Example 2:
+
+// Input: head = [1,1,2,3,3]
+// Output: [1,2,3]
+
+
+
+// SOLUTION
+
+// * Solution Explanation:
+//  * Iterate through the list. If a duplicate is found, update the 'next' pointer to skip the duplicate node.
+//  * Continue the iteration until the end of the list. The modified list has no duplicate nodes.
+//  * 
+//  * Time Complexity: O(n), where n is the number of nodes in the linked list.
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var deleteDuplicates = function(head) {
+    let current = head;
+
+    while(current) {
+        if(current.next && current.next.val === current.val) {
+            current.next = current.next.next
+        } else {
+            current = current.next
+        }
+    }
+
+    return head
+};
