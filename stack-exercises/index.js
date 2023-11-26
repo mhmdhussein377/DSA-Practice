@@ -67,4 +67,43 @@ var isValid = function(s) {
 
 
 
+// *****************
+// *****************
 
+// MEDIUM
+// Removing Stars From a String
+
+
+// Example 1:
+
+// Input: s = "leet**cod*e"
+// Output: "lecoe"
+
+// Example 2:
+
+// Input: s = "erase*****"
+// Output: ""
+// Explanation: The entire string is removed, so we return an empty string.
+
+
+// SOLUTION
+
+// * Solution Explanation:
+//  * Iterate through the input string using a stack to keep track of characters.
+//  * For each character, if it is an asterisk, pop the top element from the stack (if it exists),
+//  * effectively removing the adjacent pair of asterisks. Otherwise, push the character onto the stack.
+
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var removeStars = function(s) {
+    const stack = []
+    
+    for(const letter of s) {
+        letter === "*" ? stack.pop() : stack.push(letter)
+    }
+
+    return stack.join("")
+};
