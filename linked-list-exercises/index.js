@@ -387,7 +387,7 @@ var deleteDuplicates = function(head) {
  * @return {ListNode}
  */
 
-var check = function(remainder, result, plus) {
+var handleDigitAddition = function(remainder, result, plus) {
     if(plus >= 10) {
         let module = plus % 10
         result.next = new ListNode(module)
@@ -403,8 +403,8 @@ var addTwoNumbers = function(l1, l2) {
     let result = current = new ListNode()
 
     while(l1 && l2) {
-        let plus = l1.val + l2.val + remainder.value
-        check(remainder, result, plus)
+        let sum = l1.val + l2.val + remainder.value
+        handleDigitAddition(remainder, result, sum)
 
         result = result.next
         l1 = l1.next
@@ -412,22 +412,24 @@ var addTwoNumbers = function(l1, l2) {
     }
 
     while(l1) {
-        let plus = l1.val + remainder.value
-        check(remainder, result, plus)
+        let sum = l1.val + remainder.value
+        handleDigitAddition(remainder, result, sum)
 
         result = result.next
         l1 = l1.next
     }
 
     while(l2) {
-        let plus = l2.val + remainder.value
-        check(remainder, result, plus)
+        let sum = l2.val + remainder.value
+        handleDigitAddition(remainder, result, sum)
 
         result = result.next
         l2 = l2.next
     }
 
-    remainder.value === 1 ? result.next = new ListNode(remainder.value) : null
+    if (remainder.value === 1) {
+        result.next = new ListNode(remainder.value);
+    }
 
     return current.next
 };
