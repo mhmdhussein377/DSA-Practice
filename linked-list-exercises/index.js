@@ -335,3 +335,99 @@ var deleteDuplicates = function(head) {
 
     return head
 };
+
+
+
+// **************
+// **************
+
+// Difficulty: MEDIUM
+// Add Two Numbers
+
+
+// You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+
+// You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+// Example 1:
+
+// Input: l1 = [2,4,3], l2 = [5,6,4]
+// Output: [7,0,8]
+// Explanation: 342 + 465 = 807.
+
+
+// Example 2:
+
+// Input: l1 = [0], l2 = [0]
+// Output: [0]
+
+
+// Example 3:
+
+// Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
+// Output: [8,9,9,9,0,0,0,1]
+
+
+// SOLUTION
+
+// * The 'addTwoNumbers' function takes two linked lists representing non-negative integers, adds them digit-wise, and returns the resulting linked list. It utilizes a 'check' helper function to handle the addition logic, considering remainders and carryovers. The algorithm iterates through both linked lists, adding corresponding digits along with any remainder from the previous addition. The result is a new linked list representing the sum of the input integers. The 'remainder' object is used to track carryovers between digits. The final result is returned as a linked list without separating into individual digits, ensuring a concise and readable implementation.
+
+// * The 'addTwoNumbers' function has a time complexity of O(max(N, M)), where N and M are the lengths of the input linked lists 'l1' and 'l2', respectively.
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+
+var check = function(remainder, result, plus) {
+    if(plus >= 10) {
+        let module = plus % 10
+        result.next = new ListNode(module)
+        remainder.value = 1
+    } else {
+        result.next = new ListNode(plus)
+        remainder.value = 0
+    }
+}
+
+var addTwoNumbers = function(l1, l2) {
+    let remainder = {value: 0}
+    let result = current = new ListNode()
+
+    while(l1 && l2) {
+        let plus = l1.val + l2.val + remainder.value
+        check(remainder, result, plus)
+
+        result = result.next
+        l1 = l1.next
+        l2 = l2.next
+    }
+
+    while(l1) {
+        let plus = l1.val + remainder.value
+        check(remainder, result, plus)
+
+        result = result.next
+        l1 = l1.next
+    }
+
+    while(l2) {
+        let plus = l2.val + remainder.value
+        check(remainder, result, plus)
+
+        result = result.next
+        l2 = l2.next
+    }
+
+    remainder.value === 1 ? result.next = new ListNode(remainder.value) : null
+
+    return current.next
+};
